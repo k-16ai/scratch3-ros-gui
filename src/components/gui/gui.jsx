@@ -13,7 +13,8 @@ import Renderer from 'scratch-render';
 import Blocks from '../../containers/blocks.jsx';
 import CostumeTab from '../../containers/costume-tab.jsx';
 import TargetPane from '../../containers/target-pane.jsx';
-import SoundTab from '../../containers/sound-tab.jsx';
+import SoundTab from '../../containers/my-sound-tab.jsx';
+import MyTab from '../../containers/my-tab.jsx';
 import StageWrapper from '../../containers/stage-wrapper.jsx';
 import Loader from '../loader/loader.jsx';
 import Box from '../box/box.jsx';
@@ -37,6 +38,7 @@ import addExtensionIcon from './icon--extensions.svg';
 import codeIcon from './icon--code.svg';
 import costumesIcon from './icon--costumes.svg';
 import soundsIcon from './icon--sounds.svg';
+import rosIcon from './icon--ros.svg';
 
 const messages = defineMessages({
     addExtension: {
@@ -77,6 +79,7 @@ const GUIComponent = props => {
         previewInfoVisible,
         targetIsStage,
         soundsTabVisible,
+	myTabVisible,
         stageSizeMode,
         tipsLibraryVisible,
         vm,
@@ -170,7 +173,7 @@ const GUIComponent = props => {
                                             description="Button to get to the code panel"
                                             id="gui.gui.codeTab"
                                         />
-                                    </Tab>
+p                                    </Tab>
                                     <Tab
                                         className={tabClassNames.tab}
                                         onClick={onActivateCostumesTab}
@@ -207,6 +210,20 @@ const GUIComponent = props => {
                                             id="gui.gui.soundsTab"
                                         />
                                     </Tab>
+                                    <Tab
+                                        className={tabClassNames.tab}
+                                        onClick={onActivateSoundsTab}
+                                    >
+                                        <img
+                                            draggable={false}
+                                            src={rosIcon}
+                                        />
+                                        <FormattedMessage
+                                            defaultMessage="ROS"
+                                            description="Button to get to the ROS panel"
+                                            id="gui.gui.myTab"
+                                        />
+                                    </Tab>
                                 </TabList>
                                 <TabPanel className={tabClassNames.tabPanel}>
                                     <Box className={styles.blocksWrapper}>
@@ -239,6 +256,9 @@ const GUIComponent = props => {
                                 </TabPanel>
                                 <TabPanel className={tabClassNames.tabPanel}>
                                     {soundsTabVisible ? <SoundTab vm={vm} /> : null}
+                                </TabPanel>
+                                <TabPanel className={tabClassNames.tabPanel}>
+                                    {myTabVisible ? <MyTab vm={vm} /> : null}
                                 </TabPanel>
                             </Tabs>
                             {backpackOptions.visible ? (
@@ -296,6 +316,7 @@ GUIComponent.propTypes = {
     onTabSelect: PropTypes.func,
     previewInfoVisible: PropTypes.bool,
     soundsTabVisible: PropTypes.bool,
+    myTabVisible: PropTypes.bool,
     stageSizeMode: PropTypes.oneOf(Object.keys(STAGE_SIZE_MODES)),
     targetIsStage: PropTypes.bool,
     tipsLibraryVisible: PropTypes.bool,
