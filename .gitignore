@@ -9,6 +9,10 @@ npm-*
 /.nyc_output
 /coverage
 
+# Editor
+*.~/
+*~
+
 # Build
 /build
 /dist

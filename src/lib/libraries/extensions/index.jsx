@@ -142,6 +142,13 @@ export default [
         helpLink: 'https://scratch.mit.edu/ev3'
     },
     {
+        name: 'ROS',
+        extensionId: 'ros',
+        iconURL: penImage,
+        description: 'Testing.',
+        featured: true
+    },
+    {
         name: 'LEGO WeDo 2.0',
         extensionId: 'wedo2',
         iconURL: wedoImage,

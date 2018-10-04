@@ -205,7 +205,7 @@ class SoundTab extends React.Component {
                 dragType='COSTUME'
                 items={my_list}
             >
-                <MyTab/>
+	      <SoundEditor soundIndex={this.state.selectedSoundIndex} />
             </AssetPanel>
         );
     }

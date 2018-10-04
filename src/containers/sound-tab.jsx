@@ -49,6 +49,7 @@ class SoundTab extends React.Component {
             'setFileInput'
         ]);
         this.state = {selectedSoundIndex: 0};
+	console.log(props.vm.editingTarget.sprite.sounds);
     }
 
     componentWillReceiveProps (nextProps) {

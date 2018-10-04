@@ -12,7 +12,8 @@ import {
     BLOCKS_TAB_INDEX,
     COSTUMES_TAB_INDEX,
     SOUNDS_TAB_INDEX,
-    MY_TAB_INDEX
+    MY_TAB_INDEX,
+    MY_TAB_IK_INDEX,
 } from '../reducers/editor-tab';
 
 import {
@@ -123,6 +124,7 @@ const mapStateToProps = state => ({
     ),
     soundsTabVisible: state.scratchGui.editorTab.activeTabIndex === SOUNDS_TAB_INDEX,
     myTabVisible: state.scratchGui.editorTab.activeTabIndex === MY_TAB_INDEX,
+    myTabIKVisible: state.scratchGui.editorTab.activeTabIndex === MY_TAB_IK_INDEX,
     tipsLibraryVisible: state.scratchGui.modals.tipsLibrary
 });
 

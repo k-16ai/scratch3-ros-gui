@@ -4,12 +4,12 @@ import * as ROSLIB from 'roslib'
 import bindAll from 'lodash.bindall';
 
 //import MoveIt from './rwt-moveit.jsx';
-import MoveIt from './rwt_moveit_constructor.jsx';
+import MoveIt from './rwt-moveit-ik.jsx';
 import AssetPanel from '../components/asset-panel/asset-panel.jsx';
 import poseIcon from '../components/asset-panel/icon--pose.svg';
 import addSoundFromLibraryIcon from '../components/asset-panel/icon--add-sound-lib.svg';
 
-class MyTab extends React.Component {
+class MyTabIK extends React.Component {
   constructor(props) {
       super(props);
       bindAll(this, [
@@ -33,7 +33,7 @@ class MyTab extends React.Component {
       	    position: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}];
 
       const sprite = props.vm.editingTarget.sprite;
-      if(!sprite.poses) sprite.poses = initPose;
+      if(!sprite.posesIK) sprite.posesIK = initPose;
 
       var topic = new ROSLIB.Topic({
 	  ros: this.ros,
@@ -47,7 +47,7 @@ class MyTab extends React.Component {
   update(msg) {
       if(msg.layout.data_offset==1) return; // Viewer update
       var sprite = this.props.vm.editingTarget.sprite;
-      var pose = sprite.poses[this.state.selectedPoseIndex];
+      var pose = sprite.posesIK[this.state.selectedPoseIndex];
       var msgName = msg.layout.dim.map(obj => obj.label);
       var msgPosition = msg.data;
 
@@ -60,7 +60,7 @@ class MyTab extends React.Component {
       this.setState({selectedPoseIndex: index});
 
       var sprite = this.props.vm.editingTarget.sprite;
-      var pose = sprite.poses[index];
+      var pose = sprite.posesIK[index];
       var dim = pose.name.map(function(name) { return {label: name}; });
       var msg = {layout: {dim: dim, data_offset: 1}, data: pose.position};
 
@@ -98,9 +98,9 @@ class MyTab extends React.Component {
 
   handleDeletePose(index) {
       var sprite = this.props.vm.editingTarget.sprite;
-      sprite.poses = sprite.poses
+      sprite.posesIK = sprite.posesIK
 	  .slice(0,index)
-	  .concat(sprite.poses.slice(index + 1));
+	  .concat(sprite.posesIK.slice(index + 1));
 
       if (index >= this.state.selectedPoseIndex) {
           this.handleSelectPose(Math.max(0, index - 1));
@@ -123,17 +123,17 @@ class MyTab extends React.Component {
 	  queue_slize: 1});
 
       topic.subscribe(msg => { topic.unsubscribe();
-			       sprite.poses = sprite.poses.concat(
+			       sprite.posesIK = sprite.posesIK.concat(
 				   {text: poseName,
 				    name: msg.name,
 				    position: msg.position});
-			       that.setState({selectedPoseIndex: sprite.poses.length - 1});
+			       that.setState({selectedPoseIndex: sprite.posesIK.length - 1});
 			     });
   }
 
   render() {
       var sprite = this.props.vm.editingTarget.sprite;
-      var poseData = sprite.poses.map( function(pose) {
+      var poseData = sprite.posesIK.map( function(pose) {
 	  return {name: pose.text, url: poseIcon}; });
 
       return (
@@ -156,4 +156,4 @@ class MyTab extends React.Component {
 
 }
 
-export default MyTab;
+export default MyTabIK;

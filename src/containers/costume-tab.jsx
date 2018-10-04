@@ -101,6 +101,7 @@ class CostumeTab extends React.Component {
         } else {
             this.state = {selectedCostumeIndex: 0};
         }
+	console.log(target.sounds);
     }
     componentWillReceiveProps (nextProps) {
         const {

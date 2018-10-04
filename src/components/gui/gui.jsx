@@ -13,8 +13,9 @@ import Renderer from 'scratch-render';
 import Blocks from '../../containers/blocks.jsx';
 import CostumeTab from '../../containers/costume-tab.jsx';
 import TargetPane from '../../containers/target-pane.jsx';
-import SoundTab from '../../containers/my-sound-tab.jsx';
+import SoundTab from '../../containers/sound-tab.jsx';
 import MyTab from '../../containers/my-tab.jsx';
+import MyTabIK from '../../containers/my-tab-ik.jsx';
 import StageWrapper from '../../containers/stage-wrapper.jsx';
 import Loader from '../loader/loader.jsx';
 import Box from '../box/box.jsx';
@@ -80,6 +81,7 @@ const GUIComponent = props => {
         targetIsStage,
         soundsTabVisible,
 	myTabVisible,
+	myTabIKVisible,
         stageSizeMode,
         tipsLibraryVisible,
         vm,
@@ -219,9 +221,23 @@ p                                    </Tab>
                                             src={rosIcon}
                                         />
                                         <FormattedMessage
-                                            defaultMessage="ROS"
-                                            description="Button to get to the ROS panel"
+                                            defaultMessage="Pose"
+                                            description="Button to get to the ROS poses panel"
                                             id="gui.gui.myTab"
+                                        />
+                                    </Tab>
+                                    <Tab
+                                        className={tabClassNames.tab}
+                                        onClick={onActivateSoundsTab}
+                                    >
+                                        <img
+                                            draggable={false}
+                                            src={rosIcon}
+                                        />
+                                        <FormattedMessage
+                                            defaultMessage="Pose-IK"
+                                            description="Button to get to the ROS poses panel"
+                                            id="gui.gui.myTabIK"
                                         />
                                     </Tab>
                                 </TabList>
@@ -259,6 +275,9 @@ p                                    </Tab>
                                 </TabPanel>
                                 <TabPanel className={tabClassNames.tabPanel}>
                                     {myTabVisible ? <MyTab vm={vm} /> : null}
+                                </TabPanel>
+                                <TabPanel className={tabClassNames.tabPanel}>
+                                    {myTabIKVisible ? <MyTabIK vm={vm} /> : null}
                                 </TabPanel>
                             </Tabs>
                             {backpackOptions.visible ? (
@@ -317,6 +336,7 @@ GUIComponent.propTypes = {
     previewInfoVisible: PropTypes.bool,
     soundsTabVisible: PropTypes.bool,
     myTabVisible: PropTypes.bool,
+    myTabIKVisible: PropTypes.bool,
     stageSizeMode: PropTypes.oneOf(Object.keys(STAGE_SIZE_MODES)),
     targetIsStage: PropTypes.bool,
     tipsLibraryVisible: PropTypes.bool,
